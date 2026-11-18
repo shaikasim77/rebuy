@@ -1,0 +1,6 @@
+{
+  "name": "Rebuy",
+  "description": "One person's spare, another's need. A free reuse marketplace where unused items get a second life.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,152 @@
+/*
+ * Tailwind v4 entry: config lives here, with no tailwind.config.js or PostCSS plugin.
+ * - Keep every @import in this top block, above @theme and the rest of the file. Install an
+ *   npm package before @importing its CSS. Never @import a remote URL (web fonts, CDN CSS): the
+ *   build resolves @import from the filesystem. Load those with a <link> in the head() of
+ *   src/routes/__root.tsx and name the family in a --font-* token in @theme inline below.
+ */
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The design lives in this file: oklch color tokens on the shadcn variables
+ * (--background, --foreground, --primary, --secondary, --muted, --accent, ...) plus
+ * new tokens as needed, font tokens, and custom styles and animations.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * Brand colors are defined here as semantic tokens.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+  --radius-2xl: var(--radius);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-gold-deep: var(--gold-deep);
+  --color-hero-foreground: var(--hero-foreground);
+  --color-hero-muted: var(--hero-muted);
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+:root {
+  --radius: 1rem;
+  --background: #FBFAF7;
+  --foreground: #0B1F5C;
+  --card: #FFFFFF;
+  --card-foreground: #0B1F5C;
+  --popover: #FFFFFF;
+  --popover-foreground: #0B1F5C;
+  --primary: #0B1F5C;
+  --primary-foreground: #FBF6EA;
+  --secondary: #F1EBDB;
+  --secondary-foreground: #0B1F5C;
+  --muted: #F1EEE7;
+  --muted-foreground: #626578;
+  --accent: #F6EED5;
+  --accent-foreground: #0B1F5C;
+  --destructive: oklch(0.52 0.2 27);
+  --destructive-foreground: #FFFFFF;
+  --border: #E5E1D6;
+  --input: #D5D1C5;
+  --ring: #C9A227;
+  --chart-1: var(--primary);
+  --chart-2: var(--gold);
+  --chart-3: var(--muted-foreground);
+  --chart-4: var(--secondary);
+  --chart-5: var(--accent);
+  --sidebar: var(--background);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+  --gold: #C9A227;
+  --gold-foreground: #0B1F5C;
+  --gold-deep: #80630D;
+  --hero-foreground: #FBF6EA;
+  --hero-muted: #DDD9CD;
+  --hero-gradient: var(--background);
+  --shadow-soft: 0 4px 8px -4px color-mix(in oklab, var(--foreground) 10%, transparent), 0 12px 28px -12px color-mix(in oklab, var(--foreground) 18%, transparent);
+  --shadow-lift: 0 8px 16px -6px color-mix(in oklab, var(--primary) 18%, transparent), 0 18px 36px -12px color-mix(in oklab, var(--foreground) 22%, transparent);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+}
+
+@utility bg-hero { background: var(--hero-gradient); }
+@utility shadow-soft { box-shadow: var(--shadow-soft); }
+@utility shadow-lift { box-shadow: var(--shadow-lift); }
+@utility google-btn {
+  display: inline-flex; width: 100%; align-items: center; justify-content: center; gap: 10px;
+  padding: 10px 12px; border-radius: var(--radius); border: 1px solid #747775;
+  background: #ffffff; color: #1f1f1f; font-size: 14px; font-weight: 500;
+}
+
+@layer base {
+  h1, h2, h3 { font-family: var(--font-display); letter-spacing: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-slot="button"], a, button { transition: none !important; translate: none !important; }
+}
